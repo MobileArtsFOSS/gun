@@ -553,8 +553,8 @@ connect(State=#state{host=Host, port=Port, opts=Opts, transport=Transport=ranch_
 		http2 -> <<"h2">>
 	end || P <- maps:get(protocols, Opts, [http2, http])],
 	TransportOpts = [binary, {active, false},
-		{alpn_advertised_protocols, Protocols},
-		{client_preferred_next_protocols, {client, Protocols, <<"http/1.1">>}}
+		{alpn_advertised_protocols, Protocols}
+			%%,{client_preferred_next_protocols, {client, Protocols, <<"http/1.1">>}}
 		|maps:get(transport_opts, Opts, [])],
 	case Transport:connect(Host, Port, TransportOpts, maps:get(connect_timeout, Opts, infinity)) of
 		{ok, Socket} ->
